@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import domain.Ticket;
 
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TicketManagerTest {
@@ -14,7 +13,7 @@ public class TicketManagerTest {
     private Ticket two = new Ticket(2, 17000, "AAC", "AAE", 310);
     private Ticket three = new Ticket(3, 18000, "AAA", "AAB", 65);
     private Ticket four = new Ticket(4, 16500, "AAH", "AAI", 750);
-    private Ticket five = new Ticket(5, 19000, "AAJ", "AAK", 150);
+    private Ticket five = new Ticket(5, 17000, "AAJ", "AAK", 150);
     private Ticket six = new Ticket(6, 17500, "AAA", "AAB", 100);
 
     @BeforeEach
@@ -30,22 +29,31 @@ public class TicketManagerTest {
 
     @Test
     void mustShowAllTickets() {
-        Ticket[] expected = new Ticket[]{one,four, two, six, three, five};
+        Ticket[] expected = new Ticket[]{one, four, two, five, six, three};
         assertArrayEquals(expected, manager.showAll());
     }
 
     @Test
     void findExisting() {
         Ticket[] expected = new Ticket[]{one, six, three};
-        Ticket[]actual = manager.findAll("AAA", "AAB");
+        Ticket[] actual = manager.findAll("AAA", "AAB");
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void findUncertainty() {
         Ticket[] expected = new Ticket[0];
-        Ticket[] actual =manager.findAll("AAA", "AAJ");
+        Ticket[] actual = manager.findAll("AAA", "AAJ");
         assertArrayEquals(expected, actual);
     }
 
+    @Test
+    public void mustFindById() {
+
+        repo.removeById(1);
+        Ticket[] expected = {six};
+        Ticket[] actual = new Ticket[]{repo.findBiId(6)};
+        Assertions.assertArrayEquals(expected, actual);
+
+    }
 }

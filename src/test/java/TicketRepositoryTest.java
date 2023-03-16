@@ -3,7 +3,6 @@ import org.junit.jupiter.api.Test;
 import domain.Ticket;
 
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TicketRepositoryTest {
@@ -38,14 +37,18 @@ public class TicketRepositoryTest {
         Ticket[] actual = repo.getAll();
         assertArrayEquals(expected, actual);
     }
+
     @Test
 
-    public void removeByIdWithNoFindId(){
+    public void removeByIdWithNoFindId() {
 
 
-        Assertions.assertThrows(NotFoundException.class, ()->{repo.removeById(55);} );
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            repo.removeById(55);
+        });
     }
-   @Test
+
+    @Test
     public void showItemsWithRemoveById() {
         repo.save(one);
         repo.save(two);
@@ -53,6 +56,15 @@ public class TicketRepositoryTest {
         Ticket[] expected = {two};
         Ticket[] actual = repo.getAll();
 
+        Assertions.assertArrayEquals(expected, actual);
+    }
+    @Test
+    public void mustFindById(){
+        repo.save(one);
+        repo.save(two);
+
+        Ticket[] expected = {one};
+        Ticket[] actual = new Ticket[]{repo.findBiId(1)};
         Assertions.assertArrayEquals(expected, actual);
     }
 

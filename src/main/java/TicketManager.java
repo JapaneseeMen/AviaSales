@@ -17,7 +17,7 @@ public class TicketManager {
     public Ticket[] findAll(String to, String from) {
         Ticket[] result = new Ticket[0];
         for (Ticket ticket : repo.getAll()) {
-            if (matches(ticket,to) && matchesSecond(ticket,from)){
+            if (matches(ticket, to) && matchesSecond(ticket, from)) {
                 Ticket[] tmp = new Ticket[result.length + 1];
                 for (int i = 0; i < result.length; i++) {
                     tmp[i] = result[i];
@@ -32,20 +32,22 @@ public class TicketManager {
     }
 
     public boolean matches(Ticket ticket, String search) {
-        if (ticket.getFrom().contains(search) ) {
+        if (ticket.getFrom().contains(search)) {
             return true;
         } else {
             return false;
         }
     }
-        public boolean matchesSecond(Ticket ticket, String search) {
-            if ( ticket.getTo().contains(search)) {
-                return true;
-            } else {
-                return false;
-            }
+
+    public boolean matchesSecond(Ticket ticket, String search) {
+        if (ticket.getTo().contains(search)) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
+
     public Ticket[] showAll() {
         Ticket[] result = repo.getAll();
         Arrays.sort(result);
